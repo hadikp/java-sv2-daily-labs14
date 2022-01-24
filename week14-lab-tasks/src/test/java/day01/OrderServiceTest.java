@@ -1,6 +1,7 @@
 package day01;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
@@ -24,6 +25,7 @@ class OrderServiceTest {
         o1.addProduct(p1);
         o1.addProduct(p2);
         o1.addProduct(p5);
+        o1.addProduct(p4);
 
         Order o2 = new Order("on delivery", LocalDate.of(2021, 06, 01));
         o2.addProduct(p3);
@@ -50,6 +52,35 @@ class OrderServiceTest {
         orderService.saveOrder(o3);
         orderService.saveOrder(o4);
         orderService.saveOrder(o5);
+    }
+
+    @Test
+    void testDbOfOrders() {
+        assertEquals(12, orderService.dbOfOrders("IT"));
+        assertEquals(4, orderService.dbOfOrders("Book"));
+    }
+
+    @Test
+    void testOrdersBetweenDate() {
+        assertEquals(10, orderService.ordersBetweenDate(LocalDate.of(2021, 06, 01), LocalDate.of(2021, 06, 8)));
+        assertEquals(16, orderService.ordersBetweenDate(LocalDate.of(2021, 05, 31), LocalDate.of(2021, 06, 8)));
+        assertEquals(0, orderService.ordersBetweenDate(LocalDate.of(2021, 06, 8), LocalDate.of(2021, 06, 30)));
+    }
+
+    @Test
+    void testIsExistOrders() {
+        assertTrue(orderService.isExistOrders(4));
+        assertFalse(orderService.isExistOrders(3));
+    }
+
+    @Test
+    void testMaxDbOrder() {
+        System.out.println(orderService.maxDbOrder());
+    }
+
+    @Test
+    void testThereIsProduct() {
+        System.out.println(orderService.thereIsProduct("Book"));
     }
 
 }
