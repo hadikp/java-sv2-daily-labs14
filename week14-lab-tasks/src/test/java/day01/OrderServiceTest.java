@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,16 +56,23 @@ class OrderServiceTest {
     }
 
     @Test
-    void testDbOfOrders() {
-        assertEquals(12, orderService.dbOfOrders("IT"));
-        assertEquals(4, orderService.dbOfOrders("Book"));
+    void findOrdersbyStatus() {
+        List<Order> result = orderService.findOrdersbyStatus("pending");
+        assertEquals(3, result.size());
+        assertEquals(4, result.get(0).getProducts().size());
     }
 
     @Test
-    void testOrdersBetweenDate() {
-        assertEquals(10, orderService.ordersBetweenDate(LocalDate.of(2021, 06, 01), LocalDate.of(2021, 06, 8)));
-        assertEquals(16, orderService.ordersBetweenDate(LocalDate.of(2021, 05, 31), LocalDate.of(2021, 06, 8)));
-        assertEquals(0, orderService.ordersBetweenDate(LocalDate.of(2021, 06, 8), LocalDate.of(2021, 06, 30)));
+    void countOrdersbyStatus() {
+        long result = orderService.countOrderByStatus("pending");
+        assertEquals(3, result);
+    }
+
+    @Test
+    void testOrdersBetweenDates() {
+        assertEquals(10, orderService.ordersBetweenDates(LocalDate.of(2021, 06, 01), LocalDate.of(2021, 06, 8)));
+        assertEquals(16, orderService.ordersBetweenDates(LocalDate.of(2021, 05, 31), LocalDate.of(2021, 06, 8)));
+        assertEquals(0, orderService.ordersBetweenDates(LocalDate.of(2021, 06, 8), LocalDate.of(2021, 06, 30)));
     }
 
     @Test
@@ -80,7 +88,7 @@ class OrderServiceTest {
 
     @Test
     void testThereIsProduct() {
-        System.out.println(orderService.thereIsProduct("Book"));
+       System.out.println(orderService.thereIsProduct("Book"));
     }
 
 }
