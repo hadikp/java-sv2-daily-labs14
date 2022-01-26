@@ -91,4 +91,9 @@ class OrderServiceTest {
        System.out.println(orderService.thereIsProduct("Book"));
     }
 
+    @Test
+    void testFindProductOverPrice() {
+        System.out.println(orderService.findProductOverPrice(400));
+    }
+
 }

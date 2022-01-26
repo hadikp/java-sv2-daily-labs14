@@ -45,6 +45,10 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
+    public List<Product> findProductOverPrice(int amount) { //azon termékek amik bizonyos ár fölött vannak
+        return orders.stream().flatMap(o -> o.getProducts().stream()).filter(p -> p.getPrice() > amount).distinct().toList();
+    }
+
 
 
 }
